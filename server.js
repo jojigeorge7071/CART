@@ -4,6 +4,8 @@
  * Module dependencies.
  */
 require('dotenv').config();
+var db =require('./config/connection')
+
 
 
 var app = require("./app");
@@ -13,6 +15,12 @@ var http = require("http");
 /**
  * Get port from environment and store in Express.
  */
+db.connect((err)=>{//connect to database
+  if(err)
+  console.log('connection error'+err)
+  else
+  console.log('connection established')
+})
 
 var port = normalizePort(process.env.PORT || "3000");
 app.set("port", port);
@@ -26,7 +34,7 @@ var server = http.createServer(app);
 /**
  * Listen on provided port, on all network interfaces.
  */
-
+console.log('creating port....');
 server.listen(port);
 server.on("error", onError);
 server.on("listening", onListening);

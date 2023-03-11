@@ -29,12 +29,7 @@ app.engine('hbs', hbs.engine({
 }));
 app.set('view engine', 'hbs');
 app.use(fileUpload())
-db.connect((err)=>{//connect to database
-  if(err)
-  console.log('connection error'+err)
-  else
-  console.log('connection established')
-})
+
 
 
 
