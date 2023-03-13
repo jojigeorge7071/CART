@@ -21,7 +21,7 @@ db.connect((err) => {
 	else {
 		server.listen(port, () => {
 			// console.log("listening for requests");
-			console.log("connection established");
+			console.log(`connection established at port ${port}`);
 		});
 	}
 });
