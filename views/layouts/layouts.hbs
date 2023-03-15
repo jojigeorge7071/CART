@@ -1,12 +1,13 @@
 <!doctype html>
 <html lang="en">
-<style>
+{{!-- <style>
     a {
         text-decoration=none
     }
-</style>
+</style> --}}
 
 <head>
+
 
     {{!-- Razorpay --}}
     <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
@@ -25,7 +26,8 @@
 
     <!-- font -->
     <script src="https://kit.fontawesome.com/f7a2388c7e.js" crossorigin="anonymous"></script>
-
+    {{!-- css linking --}}
+    <link rel="stylesheet"type="text/css" href="/stylesheets/style.css">
 
     <!-- DataTables CSS -->
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.23/css/jquery.dataTables.min.css">
@@ -33,9 +35,7 @@
     <!-- DataTables JS -->
     <script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js">
     </script>
-
 </head>
-
 
 {{#if admin}}
 {{>admin-header}}
@@ -43,6 +43,8 @@
 {{>user-header}}
 {{/if}}
 
+    {{!-- <link rel="stylesheet"type="text/css" href="stylesheets/style.css"> --}}
+    {{!-- <link rel="stylesheet"type="text/css" href="/public/stylesheets/style.css"> --}}
 
 {{{body}}}
 
@@ -56,6 +58,6 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"
     integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous">
     </script> --}}
-<script src="/javascripts/scripts.js"></script>
+<script src="javascripts/scripts.js"></script>
 
 </html>

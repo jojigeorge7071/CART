@@ -1,17 +1,17 @@
 <div class="container mt-5 ">
         <div class="card container shadow-lg " style="width: 30rem;">            
-            <div class="display-5 text-center mt-4">Login </div>   
+            <div class="display-5 text-center mt-4">Admin Login </div>   
             <hr> 
             <div class="card-body  ">
                 <form action="/admin/adminLogin" method="POST">
                     
                     <div class="mb-">
                         <label for="email-reg" class="form-label">Username</label>
-                        <input type="text" class="form-control"placeholder="Enter Username" id="email-reg" value="test mail" name="username">                        
+                        <input type="text" class="form-control"placeholder="Enter Username" id="email-reg" value="mn" name="username">                        
                     </div>
                     <div class="mb-3">
                         <label for="password-reg" class="form-label">Password</label>
-                        <input type="password" class="form-control"placeholder="Enter Password" id="password-reg" value="test"  name="password">
+                        <input type="password" class="form-control"placeholder="Enter Password" id="password-reg" value="mn"  name="password">
                     </div>
                     {{#if loginErr}}
                         <div class="text-center">

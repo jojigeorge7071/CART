@@ -3,29 +3,37 @@ const { response } = require('express');
 var express = require('express');
 const productHelpers = require('../helpers/product-helpers');
 var router = express.Router();
+const verifyLogin = (req, res, next) => {
+    if (req.session.adminloggedIn) {
+      next()
+    } else {
+        res.render('admin/adminLogin', { admin: true })
+    //   res.redirect('/adminLogin')
+    }
+  }
 
-router.get('/shipped/:id', async (req, res) => {
+router.get('/shipped/:id',verifyLogin, async (req, res) => {
 
       console.log('re=======================================',req.params);
       var response = await productHelpers.shipped(req.params.id)
       res.json({ shippedFlag:true})
     })
 
-router.get('/viewAdminOrder/:orderId', async (req, res) => {
+router.get('/viewAdminOrder/:orderId',verifyLogin, async (req, res) => {
     let orderItems = await productHelpers.getProductAdminDetails(req.params.orderId)
     details=orderItems[0]
-    res.render('admin/viewAdminOrder', {admin:true, orderItems,details})
+    res.render('admin/viewAdminOrder', {admin:req.session.admin, orderItems,details})
   
   })
 
-router.get('/orderAdmin', async (req, res) => { 
+router.get('/orderAdmin',verifyLogin, async (req, res) => { 
     let order = await productHelpers.getOrderList()
-    res.render('admin/orderAdmin', { order ,admin:true})
+    res.render('admin/orderAdmin', { order ,admin:req.session.admin})
   })
-router.get('/adminSignup', (req, res) => {
-    res.render('admin/adminSignup', { admin: true })
+router.get('/adminSignup',verifyLogin, (req, res) => {
+    res.render('admin/adminSignup', { admin: req.session.admin })
 })
-router.post('/adminSignup', (req, res) => {
+router.post('/adminSignup',(req, res) => {
     productHelpers.doAdminSignup(req.body).then((response) => {
         // console.log(response)
         console.log('----------------------')
@@ -61,12 +69,14 @@ router.post('/adminLogin', (req, res) => {
     })
 })
 
-router.get('/', async (req, res) => {
-    let adminS = req.session.admin
+router.get('/',verifyLogin, async (req, res) => {
+    let adminSes = req.session.admin
+    // adminSes.admin=true
+    console.log('in admin router /',req.session);
     let products = await productHelpers.getAllProducts()
     let category = await productHelpers.getAllCategories()
-    if (adminS) {
-        res.render('admin/viewProducts', { adminS, products, category, admin: true })
+    if (adminSes) {
+        res.render('admin/viewProducts', {  products, category,admin:req.session.admin })
 
     }else{
         res.render('admin/viewProducts', { products, category, admin: true })
@@ -81,9 +91,9 @@ router.get('/', async (req, res) => {
 // })
 
 
-router.get('/add-product', async (req, res) => {
+router.get('/add-product',verifyLogin, async (req, res) => {
     let allCategory = await productHelpers.getAllCategory()
-    res.render('admin/add-product', { allCategory, admin: true })
+    res.render('admin/add-product', { allCategory, admin: req.session.admin })
 
 })
 router.post('/add-product', function (req, res, next) {
@@ -95,7 +105,7 @@ router.post('/add-product', function (req, res, next) {
         let image = req.files.photo
         image.mv('./public/product-image/' + id + '.jpg', (err, done) => {
             if (!err) {
-                res.render('admin/add-product', { admin: true })
+                res.render('admin/add-product', { admin: req.session.admin })
             } else {
                 console.log(err);
             }
@@ -103,7 +113,7 @@ router.post('/add-product', function (req, res, next) {
     })
 })
 
-router.get('/delete-product/:id', (req, res) => {
+router.get('/delete-product/:id',verifyLogin, (req, res) => {
     let proId = req.params.id
     // console.log(proId);
     productHelpers.deleteProduct(proId).then((response) => {
@@ -112,12 +122,12 @@ router.get('/delete-product/:id', (req, res) => {
     })
 })
 
-router.get('/edit-product/:id', async (req, res) => {
+router.get('/edit-product/:id',verifyLogin, async (req, res) => {
     let allCategory = await productHelpers.getAllCategory()
 
     let product = await productHelpers.getProdctDetails(req.params.id)
     // console.log(product);
-    res.render('admin/edit-product', { allCategory, adim: true, product })
+    res.render('admin/edit-product', { allCategory, admin: req.session.admin, product })
 })
 
 router.post('/edit-product/:id', (req, res) => {
@@ -137,8 +147,8 @@ router.post('/edit-product/:id', (req, res) => {
     })
 })
 
-router.get('/add-category', function (req, res) {
-    res.render('admin/add-category', { admin: true })
+router.get('/add-category',verifyLogin, function (req, res) {
+    res.render('admin/add-category', { admin: req.session.admin })
 
 })
 router.post('/add-category', function (req, res, next) {
@@ -146,14 +156,14 @@ router.post('/add-category', function (req, res, next) {
         let image = req.files.photo
         image.mv('./public/category-image/' + id + '.jpg', (err, done) => {
             if (!err) {
-                res.render('admin/add-category', { admin: true })
+                res.render('admin/add-category', { admin: req.session.admin })
             } else {
                 console.log(err);
             }
         })
     })
 })
-router.get('/delete-category/:id', (req, res) => {
+router.get('/delete-category/:id',verifyLogin, (req, res) => {
     let proId = req.params.id
     // console.log('categoryId:',proId);
     productHelpers.deleteCategory(proId).then((response) => {
@@ -161,10 +171,10 @@ router.get('/delete-category/:id', (req, res) => {
         res.redirect('/admin')
     })
 })
-router.get('/edit-category/:id', async (req, res) => {
+router.get('/edit-category/:id',verifyLogin, async (req, res) => {
     let category = await productHelpers.getCategoryDetails(req.params.id)
     // console.log(category);
-    res.render('admin/edit-category', { category, admin: true })
+    res.render('admin/edit-category', { category, admin: req.session.admin })
 })
 router.post('/edit-category/:id', async (req, res) => {
     let id = req.params.id

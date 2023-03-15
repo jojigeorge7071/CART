@@ -1,13 +1,9 @@
-<style>
-    .classContainer1{
-        display: flex;
-        justify-content: space-between;
-    }
-</style>
+
 <body>
-    <header>
+    <link rel="stylesheet"type="text/css" href="stylesheets/style.css">
+    <header class="fixedTopBar">
         <nav class=" navbar navbar-expand-lg navbar-light bg-secondary">
-            <div class="container-fluid">
+            <div class="ms-5 container-fluid">
 
                 <i class="fa-solid fa-cart-shopping">
                 <a class="navbar-brand" href="/">Shopping Cart</a>
@@ -20,8 +16,8 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 </div>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav ms-auto">
+                <div class=" collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav ms-auto ">
                         <li class="nav-item">
                             <a class="nav-link active" aria-current="page" href="/">admin header</a>
                         </li>
@@ -34,20 +30,20 @@
                         <li class="nav-item">
                             <a class="nav-link" href="/admin/add-product">Add Product</a>
                         </li>
-                        <li class="nav-item dropdown">
+                        <li class="nav-item dropdown me-2 pe-5">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                                 data-bs-toggle="dropdown" aria-expanded="false">
-                                {{#if adminS}}
-                                    {{adminS.name}}
+                                {{#if admin}}
+                                    {{admin.name}}
                                 {{else}}
                                     Admin
                                 {{/if}}
                             </a>
-                            <ul class="dropdown-menu " aria-labelledby="navbarDropdown">
-                                {{#if adminS}}
+                            <ul class="dropdown-menu  " aria-labelledby="navbarDropdown">
+                                {{#if admin.name}}
                                         <li><a class="dropdown-item" href="admin/adminLogout">Logout</a></li>
                                 {{else}}
-                                    <li><a class="dropdown-item" href="/admin/adminLogin">Login</a></li>
+                                    <li><a class="dropdown-item " href="/admin/adminLogin">Login</a></li>
                                     <li><a class="dropdown-item" href="/admin/adminSignup">Signup</a></li>
                                 {{/if}}
                                 

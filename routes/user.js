@@ -23,7 +23,7 @@ router.get('/profile', (req, res) => {
 // first page
 router.get('/', async function (req, res, next) {
   let user = req.session.user
-  // console.log('entered');
+  console.log(req.session);
   let cartCount = 0
   if (req.session.user) {
     cartCount = await userHelpers.getCartCount(req.session.user._id,)
