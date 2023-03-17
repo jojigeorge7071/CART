@@ -1,6 +1,5 @@
 
 <body>
-    <link rel="stylesheet"type="text/css" href="stylesheets/style.css">
     <header class="fixedTopBar">
         <nav class="navbar   navbar-expand-lg navbar-light bg-secondary">
             <div class="ms-5 container-fluid ">
@@ -19,17 +18,17 @@
                 <div class=" collapse navbar-collapse" id="navbarNavDropdown">
                     <ul class="navbar-nav ms-auto">
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="/admin">
-                                user header
+                            <a class="nav-link active " aria-current="page" href="/admin">
+                                User header
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/order">
+                            <a class="nav-link active" href="/order">
                                 Order
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/cart">
+                            <a class="nav-link active" href="/cart">
                                 Cart
                                 {{#if cartCount}}
                                     <span class="badge bg-dark" id="cartId">{{cartCount}}</span>
@@ -39,7 +38,7 @@
                         </li>
 
                         <li class="nav-item dropdown me-2 pe-5">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                            <a class="nav-link active dropdown-toggle" href="#" id="navbarDropdown" role="button"
                                 data-bs-toggle="dropdown" aria-expanded="false">
                                 {{#if user}}
                                 {{user.name}}

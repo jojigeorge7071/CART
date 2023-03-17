@@ -173,7 +173,7 @@ router.get('/delete-category/:id',verifyLogin, (req, res) => {
 })
 router.get('/edit-category/:id',verifyLogin, async (req, res) => {
     let category = await productHelpers.getCategoryDetails(req.params.id)
-    // console.log(category);
+    console.log(category);
     res.render('admin/edit-category', { category, admin: req.session.admin })
 })
 router.post('/edit-category/:id', async (req, res) => {

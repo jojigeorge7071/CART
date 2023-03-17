@@ -8,10 +8,9 @@
                         {{!-- <div class=" shadow text-center text-white  mt-5 mb-5 "style="background-color: #ff6600;" >
                             <h6 class="mt-2 py-2">MY CART</h6>
                         </div> --}}
-                        <div class="display-5 text-center mt-5 mb-5 ">My Cart</div> 
+                        <div class="display-6 text-center p-3 mb-4">My Cart</div> 
                         
                         </div>
-                        <hr>
                         {{#if cartItems}}
                             {{#each cartItems}}
                                 <div class="container pe-5 row text-center product_data ">
@@ -21,7 +20,7 @@
                                     </div>
                                     <div class="col-md-2 my-auto ">
                                         <a href="#" >
-                                            <h6>{{this.product.title}}</h6>
+                                            <a>{{this.product.title}}</a>
                                         </a>
                                         <!-- <input type="text" value="{{i.product.category.slug}}">  -->
                                     </div>
@@ -47,8 +46,8 @@
                                         <button class="btn btn-outline-danger delete-cart-item "onclick = 'removeFromCart("{{this._id}}","{{this.product._id}}","{{this.quantity}}")'><i class="fa-solid fa-trash"></i>  Remove</button>
 
                                     </div>
-                                </div>
                                 <hr>
+                                </div>
                                 
                             {{/each}}
                             <div class="container ">

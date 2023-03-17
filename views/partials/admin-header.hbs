@@ -1,6 +1,6 @@
 
 <body>
-    <link rel="stylesheet"type="text/css" href="stylesheets/style.css">
+    {{!-- <link rel="stylesheet"type="text/css" href="stylesheets/style.css"> --}}
     <header class="fixedTopBar">
         <nav class=" navbar navbar-expand-lg navbar-light bg-secondary">
             <div class="ms-5 container-fluid">
@@ -18,20 +18,20 @@
                 </div>
                 <div class=" collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav ms-auto ">
-                        <li class="nav-item">
+                        {{!-- <li class="nav-item">
                             <a class="nav-link active" aria-current="page" href="/">admin header</a>
+                        </li> --}}
+                        <li class="nav-item">
+                            <a class="nav-link active" href="/admin/orderAdmin">All Order </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/admin/orderAdmin">All Order </a>
+                            <a class="nav-link active" href="/admin/add-category">Add Category</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/admin/add-category">Add Category</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/admin/add-product">Add Product</a>
+                            <a class="nav-link active" href="/admin/add-product">Add Product</a>
                         </li>
                         <li class="nav-item dropdown me-2 pe-5">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                            <a class="nav-link active dropdown-toggle" href="#" id="navbarDropdown" role="button"
                                 data-bs-toggle="dropdown" aria-expanded="false">
                                 {{#if admin}}
                                     {{admin.name}}
