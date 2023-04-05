@@ -16,14 +16,13 @@ const verifyLogin = (req, res, next) => {
     res.redirect('/login')
   }
 }
-router.get('/profile', (req, res) => {
+router.get('/profile', verifyLogin, (req, res) => {
   user=req.session.user
   res.render('user/profile',{user})
 })
 // first page
 router.get('/', async function (req, res, next) {
   let user = req.session.user
-  console.log(req.session);
   let cartCount = 0
   if (req.session.user) {
     cartCount = await userHelpers.getCartCount(req.session.user._id,)
@@ -45,7 +44,6 @@ router.get('/view-product/:category', async (req, res) => {
     cartCount = await userHelpers.getCartCount(req.session.user._id,)
   }
   let selectedProducts = await userHelpers.getSameCategoryProducts(req.params.category)
-  // console.log('getSameCategoryProducts',selectedProducts);
 
   res.render('user/view-products', { selectedProducts, user, cartCount })
 
@@ -94,10 +92,8 @@ router.post('/view-product-details', verifyLogin, async (req, res) => {
 })
 
 router.post('/verfiy-payment', (req, res) => {
-  console.log('verfiy payment il', req.body)
   userHelpers.verifyPayment(req.body).then(() => {
     userHelpers.changeOrderStatus(req.body['order[receipt]']).then(() => {
-      console.log('inside changeorder status to placed');
       res.json({ status: true })
     })
   }).catch((err) => {
@@ -107,7 +103,6 @@ router.post('/verfiy-payment', (req, res) => {
 /* GET home page. */
 // router.get('/',async function (req, res, next) {
 //   let user= req.session.user
-//   // console.log('entered');
 //   let cartCount=null
 //   if(req.session.user){
 //      cartCount =await userHelpers.getCartCount(req.session.user._id,)
@@ -129,11 +124,8 @@ router.get('/signup', (req, res) => {
 })
 router.post('/signup', (req, res) => {
   userHelpers.doSignup(req.body).then((response) => {
-    // console.log(response.user.name)
-    // console.log('----------------------')
     req.session.user = response.user
     req.session.user.loggedIn = true
-    console.log('session',req.session)
 
     res.redirect('/')
   })
@@ -143,7 +135,6 @@ router.post('/login', (req, res) => {
     if (response.status) {
       req.session.user = response.user
       req.session.userloggedIn = true
-      console.log('session',req.session)
       res.redirect('back')
     } else {
       req.session.loginErr = 'Username or Password is wrong'
@@ -152,14 +143,13 @@ router.post('/login', (req, res) => {
   })
 })
 router.get('/logout', (req, res) => {
-  req.session.user=null
+  req.session.user=null 
   req.session.loggedIn=false
   res.redirect('/')
 })
 router.get('/placeorder', verifyLogin, async (req, res) => {
   let cartItems = await userHelpers.getCartProducts(req.session.user._id)
   let total = await userHelpers.getCartTotal(req.session.user._id)
-  // console.log(total+'total in cart');
   res.render('user/placeOrder', { cartItems, user: req.session.user, total })
 })
 router.post('/placeOrder', async (req, res) => {
@@ -174,16 +164,14 @@ router.post('/placeOrder', async (req, res) => {
       })
     }
   })
-  // console.log(req.body)
 })
 router.get('/cart', verifyLogin, async (req, res) => {
   let cartItems = null
   cartItems = await userHelpers.getCartProducts(req.session.user._id)
   let total = null
-  if(cartItems){
+  if(cartItems!=''){
     total = await userHelpers.getCartTotal(req.session.user._id)
   }
-  console.log(cartItems+'total in cart');
   res.render('user/cart', { cartItems, user: req.session.user, total })
 })
 
@@ -236,7 +224,6 @@ router.get('/ajax-plus-from-cart/:id', async (req, res) => {
       // console.log('plus form cart',total);
       // alert('******',total)
       changedItem = await userHelpers.getCartProductCount(req.session.user._id, req.params.id)
-      console.log(changedItem[0].quantity);
       res.json({ item: changedItem[0].item, quantity: changedItem[0].quantity, total: total })
     })
   }

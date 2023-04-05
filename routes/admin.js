@@ -30,7 +30,7 @@ router.get('/orderAdmin',verifyLogin, async (req, res) => {
     let order = await productHelpers.getOrderList()
     res.render('admin/orderAdmin', { order ,admin:req.session.admin})
   })
-router.get('/adminSignup',verifyLogin, (req, res) => {
+router.get('/adminSignup', (req, res) => {
     res.render('admin/adminSignup', { admin: req.session.admin })
 })
 router.post('/adminSignup',(req, res) => {
