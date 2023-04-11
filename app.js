@@ -34,7 +34,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 
 
-app.use(session({secret:'jojikey',cookie:{maxAge:300000}}))
+app.use(session({secret:'jojikey',cookie:{maxAge:300000},resave :false,saveUninitialized: true,}))
 
 
 app.use(logger('dev'));
